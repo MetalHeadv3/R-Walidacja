@@ -1,0 +1,28 @@
+library(MASS)
+data("Cars93")
+
+# a. Średnia waga samochodów
+srednia_waga <- mean(Cars93$Weight, na.rm = TRUE)
+print(srednia_waga)
+
+# b. Najdroższy samochód
+najdrozszy <- Cars93[which.max(Cars93$Price), ]
+print(najdrozszy)
+
+# c. Średnia liczba cylindrów
+cyl <- suppressWarnings(as.numeric(as.character(Cars93$Cylinders)))
+srednia_cyl <- mean(cyl, na.rm = TRUE)
+print(srednia_cyl)
+
+# d. Vany spoza USA
+vany_spoza_usa <- subset(Cars93, Type == "Van" & Origin != "USA")
+print(vany_spoza_usa)
+
+# e. Samochody, których Model zawiera cyfry
+model_z_cyframi <- subset(Cars93, grepl("[0-9]", Model))
+print(model_z_cyframi)
+
+# f. Samochody z USA szersze niż najszerszy Toyota/Subaru
+max_width_toy_sub <- max(subset(Cars93, Manufacturer %in% c("Toyota", "Subaru"))$Width)
+szersze_usa <- subset(Cars93, Origin == "USA" & Width > max_width_toy_sub)
+print(szersze_usa)
